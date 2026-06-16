@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:7897/ -->
+<html lang="en" data-theme="retro"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrated Scientific Calculator &amp; AI Assistant</title>
+  <link rel="stylesheet" href="./Integrated Scientific Calculator &amp; AI Assistant_files/style.css">
+<script src="chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/js/recordConsoleEvents.js"></script></head>
+<body>
+  <!-- Top title bar with chrome end-caps -->
+  <header id="titlebar">
+    <span class="title-cap left"><i></i><i></i></span>
+    <h1>INTEGRATED SCIENTIFIC CALCULATOR &amp; AI ASSISTANT</h1>
+    <span class="title-cap right"><i></i><i></i></span>
+  </header>
+
+  <main id="desktop">
+
+    <!-- ===== DASHBOARD 1: Calculator + CM Panel (upper-left) ===== -->
+    <section class="window minimized" id="win-calc" data-name="calc" style="left: 40.8px; top: 27.2px; width: 600px; height: 610px; z-index: 49; right: auto;">
+      <div class="window-title">
+        <span class="wt-label">DASHBOARD 1: Advanced Scientific Calculator (Unified)</span>
+        <span class="wt-btns">
+          <button class="wb min" title="Minimize">—</button>
+          <button class="wb close" title="Close">✕</button>
+        </span>
+      </div>
+      <div class="window-body">
+
+        <!-- Unified Scientific Display (replaces the old decorative CM panel) -->
+        <div class="sci-display">
+          <div class="sci-head">
+            <span class="sci-title">SCIENTIFIC DISPLAY</span>
+            <span class="sci-mode" id="sci-mode">RAD · expression</span>
+          </div>
+          <textarea id="calc-expr" class="sci-input" rows="2" spellcheck="false" autocomplete="off" placeholder="0"></textarea>
+          <div id="calc-result" class="calc-result"></div>
+        </div>
+
+        <!-- Keypad: function cluster (left) + numpad (right) inside one #keypad -->
+        <div class="keypad" id="keypad">
+          <div class="kp kp-fn">
+            <button data-ins="sin(">sin</button><button data-ins="cos(">cos</button>
+            <button data-ins="tan(">tan</button><button data-ins="ln(">ln</button>
+            <button data-ins="log(">log</button>
+
+            <button data-ins="asin(">sin<sup>-1</sup></button><button data-ins="acos(">cos<sup>-1</sup></button>
+            <button data-ins="atan(">tan<sup>-1</sup></button><button data-ins="exp(">e<sup>x</sup></button>
+            <button data-ins="^">x<sup>y</sup></button>
+
+            <button data-ins="sqrt(">√</button><button class="op" data-ins="(">(</button>
+            <button class="op" data-ins=")">)</button><button data-ins="pi">π</button>
+            <button data-ins="E">e</button>
+
+            <button class="fn" data-ins="diff(">d/dx</button><button class="fn" data-ins="integrate(">∫</button>
+            <button class="fn" data-ins="solve(">solve</button><button class="fn" data-ins="factor(">factor</button>
+            <button class="fn" data-ins="expand(">expand</button>
+
+            <button class="fn" data-ins="simplify(">simplify</button><button class="fn sm" data-ins="limit(">limit</button>
+            <button data-ins="factorial(">n!</button><button class="op" data-ins=",">,</button>
+            <button class="op" data-ins="%">%</button>
+
+            <button class="op" data-ins="i">i</button><button class="op" data-ins="=">=</button>
+            <button class="clr wide3" data-act="clear">Clear</button>
+          </div>
+
+          <div class="kp kp-num">
+            <button class="op" data-act="back">⌫</button>
+            <button class="op" data-ins="/">÷</button>
+            <button class="op" data-ins="*">×</button>
+            <button class="op" data-ins="-">−</button>
+
+            <button class="num" data-ins="7">7</button><button class="num" data-ins="8">8</button>
+            <button class="num" data-ins="9">9</button><button class="op tall" data-ins="+">+</button>
+
+            <button class="num" data-ins="4">4</button><button class="num" data-ins="5">5</button>
+            <button class="num" data-ins="6">6</button>
+
+            <button class="num" data-ins="1">1</button><button class="num" data-ins="2">2</button>
+            <button class="num" data-ins="3">3</button><button class="eq tall" data-act="equals">=</button>
+
+            <button class="num wide2" data-ins="0">0</button>
+            <button class="num" data-ins=".">.</button>
+          </div>
+        </div>
+      </div>
+      <div class="resize-handle"></div>
+    </section>
+
+    <!-- ===== ACTIVE AI CHAT (upper-right) — PARENT ===== -->
+    <section class="window parent" id="win-chat" data-name="chat" style="right: auto; top: 11.4px; width: 584.8px; height: 506.8px; z-index: 43; left: 844.2px;">
+      <div class="window-title">
+        <span class="wt-label">ACTIVE AI CHAT &amp; PROBLEM SOLVING</span>
+        <span class="wt-btns"><button class="wb min" title="Minimize">—</button></span>
+      </div>
+      <div class="chat-toolbar" id="chat-toolbar">
+        <button data-win="calc" class="tbtn">▣ Calculator</button>
+        <button data-win="viz" class="tbtn active">▣ Visualization</button>
+        <button data-win="weather" class="tbtn">☁ Weather</button>
+        <button id="btn-atlas" class="tbtn" title="Open the ATLAS Silent Science Engine (instrument rack)">▲ ATLAS</button>
+        <span class="tb-sep"></span>
+        <button id="btn-new" class="tbtn">＋ New</button>
+        <button id="btn-knowledge" class="tbtn">📎 Knowledge</button>
+        <button id="btn-memory" class="tbtn" title="What Mr. Science has learned about you">🧠 Memory</button>
+        <button id="btn-history" class="tbtn">🕘 History</button>
+        <button id="btn-key" class="tbtn">🔑 Key</button>
+        <button id="btn-settings" class="tbtn" title="Model &amp; chat settings · key profile">⚙ Settings</button>
+        <span class="tb-sep"></span>
+        <button id="btn-theme" class="tbtn theme">◑ Retro</button>
+      </div>
+      <div class="window-body chat-body"><div id="chat-log" class="chat-log"><div class="msg ai"><span class="who">[AI-SCI]</span><span class="body">Mr. Science online. Ask me physics or math, or punch numbers into the calculator — results plot next door. ⚛</span></div></div></div>
+      <div class="chat-input">
+        <textarea id="chat-text" rows="1" placeholder="Ask Mr. Science…  (Enter to send · Shift+Enter newline)"></textarea>
+        <button id="chat-send" class="send" title="Send">➤</button>
+      </div>
+      <div class="resize-handle"></div>
+    </section>
+
+    <!-- ===== DASHBOARD 2: Visualization + Constants (lower-right) ===== -->
+    <section class="window" id="win-viz" data-name="viz" style="right: auto; top: 123.2px; width: 734.4px; height: 406.4px; z-index: 47; left: 25.6px;">
+      <div class="window-title">
+        <span class="wt-label">DASHBOARD 2: Result Visualization &amp; Library</span>
+        <span class="wt-btns">
+          <button class="wb min" title="Minimize">—</button>
+          <button class="wb close" title="Close">✕</button>
+        </span>
+      </div>
+      <div class="window-body viz-body">
+        <div class="viz-plot">
+          <div class="viz-controls">
+            <label>x:&nbsp;<input id="plot-start" type="number" value="0" step="any"></label>
+            <label>→&nbsp;<input id="plot-stop" type="number" value="10" step="any"></label>
+            <button id="btn-plot-this" class="tbtn" title="Plot the expression in the calculator">▶ Plot this</button>
+            <button id="btn-more" class="tbtn" title="More tools: waves, curves, solar system, zoom">⋯ More</button>
+          </div>
+          <div class="viz-controls viz-tools hidden" id="viz-tools">
+            <button id="btn-sine" class="tbtn" title="Animate a live wave">∿ Wave</button>
+            <button id="btn-curve" class="tbtn" title="Draw a parametric or polar curve — circles, ellipses, orbits">◯ Curve</button>
+            <button id="btn-solar" class="tbtn" title="Animate the whole solar system">☀ Solar System</button>
+            <span class="zoom-grp">
+              <button id="zoom-out" class="tbtn" title="Zoom out">－</button>
+              <button id="zoom-in" class="tbtn" title="Zoom in">＋</button>
+              <button id="zoom-reset" class="tbtn" title="Reset zoom">⟳</button>
+            </span>
+          </div>
+          <div class="viz-controls wave-controls hidden" id="wave-controls">
+            <span class="wc-fns">
+              <button class="tbtn wave-fn active" data-wave="sin">sin</button>
+              <button class="tbtn wave-fn" data-wave="cos">cos</button>
+              <button class="tbtn wave-fn" data-wave="tan">tan</button>
+            </span>
+            <label title="Amplitude">A&nbsp;<input id="wave-amp" type="range" min="0.1" max="3" step="0.1" value="1"></label>
+            <label title="Frequency">f&nbsp;<input id="wave-freq" type="range" min="0.25" max="4" step="0.25" value="1"></label>
+            <label title="Phase offset (φ)">φ&nbsp;<input id="wave-phase" type="range" min="0" max="6.28" step="0.05" value="0"></label>
+            <label title="Animation speed">spd&nbsp;<input id="wave-speed" type="range" min="0" max="0.2" step="0.01" value="0.07"></label>
+            <button id="btn-wave2" class="tbtn" title="Add a second wave">＋ 2nd</button>
+            <span class="wc-readout" id="wave-readout"></span>
+          </div>
+          <div class="viz-controls wave-controls hidden" id="wave2-controls">
+            <span class="wc-tag">2ⁿᵈ</span>
+            <span class="wc-fns">
+              <button class="tbtn wave-fn2 active" data-wave2="sin">sin</button>
+              <button class="tbtn wave-fn2" data-wave2="cos">cos</button>
+              <button class="tbtn wave-fn2" data-wave2="tan">tan</button>
+            </span>
+            <label title="Amplitude 2">A₂&nbsp;<input id="wave-amp2" type="range" min="0.1" max="3" step="0.1" value="1"></label>
+            <label title="Frequency 2">f₂&nbsp;<input id="wave-freq2" type="range" min="0.25" max="4" step="0.25" value="1.2"></label>
+            <span class="wc-mode">
+              <button class="tbtn wave-mode active" data-mode="overlay">overlay</button>
+              <button class="tbtn wave-mode" data-mode="sum">sum (beats)</button>
+            </span>
+          </div>
+          <div class="viz-controls curve-controls hidden" id="curve-controls">
+            <span class="wc-mode">
+              <button class="tbtn curve-mode active" data-cmode="parametric">parametric</button>
+              <button class="tbtn curve-mode" data-cmode="polar">polar</button>
+              <button class="tbtn curve-mode" data-cmode="orbit">orbit</button>
+            </span>
+            <span id="param-inputs">
+              <label>x(t)=<input id="curve-x" type="text" value="cos(t)" spellcheck="false"></label>
+              <label>y(t)=<input id="curve-y" type="text" value="sin(t)" spellcheck="false"></label>
+            </span>
+            <span id="polar-inputs" class="hidden">
+              <label>r(θ)=<input id="curve-r" type="text" value="1" spellcheck="false"></label>
+            </span>
+            <span id="orbit-inputs" class="hidden">
+              <label title="Semi-major axis in astronomical units (1 AU = Earth–Sun distance)">a(AU)&nbsp;<input id="orbit-a" type="number" value="1" step="0.1" min="0.05"></label>
+              <label title="Eccentricity (0 = circle, →1 = stretched)">e&nbsp;<input id="orbit-e" type="number" value="0.6" step="0.01" min="0" max="0.97"></label>
+              <label title="Animation speed (visual only — the real period is shown below)">spd&nbsp;<input id="orbit-speed" type="range" min="0.005" max="0.08" step="0.005" value="0.025"></label>
+              <button id="btn-orbit-anim" class="tbtn" title="Kepler&#39;s 2nd law: fast at perihelion, slow at aphelion">● Animate</button>
+            </span>
+            <span id="orbit-presets" class="hidden">
+              <button class="tbtn orbit-preset" data-a="0.387" data-e="0.2056" data-name="Mercury">Mercury</button>
+              <button class="tbtn orbit-preset" data-a="0.723" data-e="0.0068" data-name="Venus">Venus</button>
+              <button class="tbtn orbit-preset" data-a="1" data-e="0.0167" data-name="Earth">Earth</button>
+              <button class="tbtn orbit-preset" data-a="1.524" data-e="0.0934" data-name="Mars">Mars</button>
+              <button class="tbtn orbit-preset" data-a="17.8" data-e="0.967" data-name="Halley">Halley</button>
+            </span>
+            <span id="curve-range">
+              <label>t/θ:&nbsp;<input id="curve-start" type="number" value="0" step="any"></label>
+              <label>→&nbsp;<input id="curve-stop" type="number" value="6.283" step="any"></label>
+            </span>
+            <button id="btn-draw-curve" class="tbtn">▶ Draw</button>
+            <button id="btn-preset-orbit" class="tbtn" title="Animate a real Kepler orbit">↗ demo</button>
+          </div>
+          <canvas id="plot-canvas" width="520" height="300"></canvas>
+          <div id="plot-label" class="plot-label muted small">I(r) · demo — run a calculation to plot</div>
+        </div>
+        <div class="viz-constants">
+          <div class="vc-head">PHYSICAL CONSTANTS REFERENCE</div>
+          <table id="constants-table"><tbody><tr><td class="sym" title="Gravitational constant">G</td><td class="val" title="Gravitational constant (N·m²/kg²)">6.6743e-11</td></tr><tr><td class="sym" title="Speed of light in vacuum">c</td><td class="val" title="Speed of light in vacuum (m/s (exact))">2.99792458e8</td></tr><tr><td class="sym" title="Planck constant">h</td><td class="val" title="Planck constant (J·s (exact))">6.62607015e-34</td></tr><tr><td class="sym" title="Reduced Planck constant">ħ</td><td class="val" title="Reduced Planck constant (J·s)">1.054571817e-34</td></tr><tr><td class="sym" title="Boltzmann constant">k</td><td class="val" title="Boltzmann constant (J/K (exact))">1.380649e-23</td></tr><tr><td class="sym" title="Elementary charge">e</td><td class="val" title="Elementary charge (C (exact))">1.602176634e-19</td></tr><tr><td class="sym" title="Avogadro constant">Nₐ</td><td class="val" title="Avogadro constant (1/mol (exact))">6.02214076e23</td></tr><tr><td class="sym" title="Molar gas constant">R</td><td class="val" title="Molar gas constant (J/(mol·K))">8.314462618</td></tr><tr><td class="sym" title="Vacuum permittivity">ε₀</td><td class="val" title="Vacuum permittivity (F/m)">8.8541878128e-12</td></tr><tr><td class="sym" title="Stefan–Boltzmann constant">σ</td><td class="val" title="Stefan–Boltzmann constant (W/(m²·K⁴))">5.670374419e-8</td></tr><tr><td class="sym" title="Electron mass">mₑ</td><td class="val" title="Electron mass (kg)">9.1093837015e-31</td></tr><tr><td class="sym" title="Proton mass">m_p</td><td class="val" title="Proton mass (kg)">1.67262192369e-27</td></tr></tbody></table>
+          <span class="vc-diamond">✦</span>
+        </div>
+      </div>
+      <div class="resize-handle"></div>
+    </section>
+
+    <!-- ===== LIVE CONDITIONS (on-demand weather) ===== -->
+    <section class="window" id="win-weather" data-name="weather" style="left:360px; top:120px; width:560px; height:250px; display:none;">
+      <div class="window-title">
+        <span class="wt-label">LIVE CONDITIONS · on demand (Open-Meteo)</span>
+        <span class="wt-btns">
+          <button class="wb min" title="Minimize">—</button>
+          <button class="wb close" title="Close">✕</button>
+        </span>
+      </div>
+      <div class="window-body weather-body">
+        <div class="wx-controls">
+          <input id="wx-loc" type="text" spellcheck="false" placeholder="city  (or  lat, lon)">
+          <button id="wx-get" class="tbtn">↻ Get Update</button>
+          <span id="wx-status" class="muted small"></span>
+        </div>
+        <div id="wx-readout" class="wx-readout muted">No data yet — press <b>Get Update</b>. One fetch, then it disconnects.</div>
+      </div>
+      <div class="resize-handle"></div>
+    </section>
+  </main>
+
+  <!-- Status bar: tool icons left, status right -->
+  <footer id="statusbar">
+    <span class="sb-icons">
+      <i title="dashboard">▦</i><i title="files">🗀</i><i title="power">⏻</i>
+      <i title="schedule">▤</i><i title="console">❯_</i><i title="settings">⚙</i>
+      <i title="signal">⏚</i><i title="layers">≣</i><i title="terminal">⌗</i>
+    </span>
+    <span class="sb-right">
+      <span>CALC-MODE: <b id="sb-mode">ADVANCED</b></span><span class="sb-sep">|</span>
+      <span>AI: <b id="sb-ai" class="">ACTIVE</b></span><span class="sb-sep">|</span>
+      <span>NET: <b id="sb-net" class="">CONNECTED</b></span><span class="sb-sep">|</span>
+      <span>MODEL: <b id="sb-model">qwen2.5:3b</b></span>
+    </span>
+  </footer>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head"><span id="modal-title">Settings</span>
+        <button id="modal-close" class="wb">✕</button></div>
+      <div id="modal-body" class="modal-body"><div class="settings-section-title">Model &amp; Chat</div><div class="settings-row"><span class="settings-label" title="Which engine narrates answers. The math is always exact (SymPy), whatever you pick.">Provider</span><select class="settings-select"><option value="ollama">Local (Ollama)</option><option value="claude">Claude (cloud API)</option><option value="byo" disabled="">…add yours</option></select></div><div class="settings-row"><span class="settings-label" title="Models installed in your local Ollama.">Model</span><select class="settings-select"><option value="qwen2.5:3b">qwen2.5:3b</option><option value="qwen2.5:7b">qwen2.5:7b</option><option value="bailey-soundwave:latest">bailey-soundwave:latest</option><option value="bailey-ajudikator1:latest">bailey-ajudikator1:latest</option><option value="bailey-tunnelrat:latest">bailey-tunnelrat:latest</option><option value="bailey-enoch3:latest">bailey-enoch3:latest</option><option value="bailey-tunnelrat-cm:latest">bailey-tunnelrat-cm:latest</option><option value="bailey-nexxis1:latest">bailey-nexxis1:latest</option><option value="bailey-tank2:latest">bailey-tank2:latest</option><option value="bailey-starscream:latest">bailey-starscream:latest</option><option value="bailey-swiitch3:latest">bailey-swiitch3:latest</option><option value="bailey-seraphim1:latest">bailey-seraphim1:latest</option><option value="qwen3.5-2b-q3:latest">qwen3.5-2b-q3:latest</option><option value="bailey-aether:latest">bailey-aether:latest</option></select></div><div class="settings-cloud" style="display: none;"><div class="settings-row"><span class="settings-label" title="Which cloud model narrates. Opus is strongest; Sonnet/Haiku are cheaper.">Claude model</span><select class="settings-select"><option value="claude-opus-4-8">claude-opus-4-8</option><option value="claude-sonnet-4-6">claude-sonnet-4-6</option><option value="claude-haiku-4-5">claude-haiku-4-5</option></select></div><div class="settings-row"><span class="settings-label" title="Paste your Anthropic API key (or set ANTHROPIC_API_KEY). Needs network access ON.">Claude API key</span><input type="password" placeholder="sk-ant-…" class="settings-num" style="width: 100%;"></div></div><div class="settings-row"><span class="settings-label" title="Higher = more conversational; lower = more precise. Math stays exact either way.">Chat warmth</span><input type="range" min="0" max="1.5" step="0.05" class="settings-range"><span class="settings-val">0.80</span></div><div class="settings-row"><span class="settings-label" title="Token window. Lower it if RAM is tight; raise it for a bigger model.">Context (num_ctx)</span><input type="number" min="512" max="1000000" step="512" class="settings-num"></div><div class="muted small" style="margin: 6px 0px 10px;">Fully offline — SymPy grounds the math, so even a tiny local model stays exact.</div><div class="key-actions"><button class="tbtn">✓ Apply</button></div><div class="key-status muted small">✓ Applied — ollama · qwen2.5:3b</div><div class="settings-section-title">Key Profile</div><div class="muted small" style="margin: 0px 0px 8px;">Your portable key remembers units, favorites, and context — privacy-guarded and fully yours.</div><div class="key-actions"><button class="tbtn">🔑 Manage Key</button></div></div>
+    </div>
+  </div>
+
+  <script src="./Integrated Scientific Calculator &amp; AI Assistant_files/app.js.download"></script>
+
+
+<div class="calendly-frame-tag" manager_id="d6fe68d9-4ab8-40fc-88d3-59fcd5c7b036" id="d6fe68d9-4ab8-40fc-88d3-59fcd5c7b036" style="height: 0px; width: 0px; visibility: hidden;"></div><div class="calendly-lifecycle-optibutton_singleton"><template shadowrootmode="closed"><div class="calendly-opti-root"></div></template></div></body></html>
