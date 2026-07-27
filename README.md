@@ -2,6 +2,14 @@
 
 A professional database and appointment management system built for dog groomers. Keep track of customers, dogs, appointments, and pricing all in one secure app.
 
+## Screenshots
+
+![Main Menu Interface](https://raw.githubusercontent.com/Atlasi7actual/Ai7-Atlas/main/screenshot-main-menu.png)
+
+*Main navigation menu with easy access to all features*
+
+---
+
 ## Features
 
 ✨ **Customer & Dog Database**
